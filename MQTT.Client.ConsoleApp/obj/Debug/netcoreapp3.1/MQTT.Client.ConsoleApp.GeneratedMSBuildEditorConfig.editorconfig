@@ -1,0 +1,3 @@
+is_global = true
+build_property.RootNamespace = MQTT.Client.ConsoleApp
+build_property.ProjectDir = C:\Users\alanc\Documents\GitHub\MQTT_Client_ConsoleApp\MQTT.Client.ConsoleApp\
