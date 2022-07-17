@@ -17,7 +17,7 @@ namespace MQTT.Client.ConsoleApp
                 "\n" +
                 "\t Connect to MQTT sever & topic, follow the below questions\n");
 
-            Console.WriteLine("What is host name?");
+            Console.WriteLine("What is websocket ULR?");
             var host = Console.ReadLine();
 
             Console.WriteLine("What is the topic?");
@@ -27,7 +27,7 @@ namespace MQTT.Client.ConsoleApp
             MqttClient = mqttFactory.CreateMqttClient();
             var options = new MqttClientOptionsBuilder()
                 .WithClientId(Guid.NewGuid().ToString())
-                .WithTcpServer(host, 1883)
+                .WithWebSocketServer(host)
                 .WithCleanSession()
                 .Build();
 
@@ -35,7 +35,7 @@ namespace MQTT.Client.ConsoleApp
             {
                 Console.WriteLine("Connected to MQTT broker");
                 var topicFilter = new MqttTopicFilterBuilder()
-                .WithTopic("test")
+                .WithTopic(topic)
                 .Build();
 
                 await MqttClient.SubscribeAsync(topicFilter);
@@ -61,7 +61,7 @@ namespace MQTT.Client.ConsoleApp
             var i = 1;
             while (i > 0)
             {
-                Console.WriteLine("Type anything to publish the message to the topic  \n" +
+                Console.WriteLine("\nType anything to publish the message to the topic  \n" +
                     "To Terminate Console App, type \'CLOSE\'\n");
 
                 var messagePayload = Console.ReadLine();
@@ -69,15 +69,15 @@ namespace MQTT.Client.ConsoleApp
                     i = 0;
                 else
                 {
-                    await PublishlMessageAsync(MqttClient, messagePayload);
+                    await PublishlMessageAsync(MqttClient, messagePayload, topic);
                 }
             }
         }
 
-        private static async Task PublishlMessageAsync(IMqttClient client, string messagePayload)
+        private static async Task PublishlMessageAsync(IMqttClient client, string messagePayload, string topic)
         {
             var message = new MqttApplicationMessageBuilder()
-                .WithTopic("test")
+                .WithTopic(topic)
                 .WithPayload(messagePayload)
                 .WithAtLeastOnceQoS()
                 .Build();
