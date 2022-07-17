@@ -335,3 +335,4 @@ src/Alerte.Holter/.angulardoc.json
 *.adh
 *.eve
 test/Alerte.Holter.Clustering.Test/testOutput/*
+MQTT.Client.ConsoleApp/.vs/MQTT.Client.ConsoleApp/v17/.suo
